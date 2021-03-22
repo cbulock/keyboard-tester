@@ -1,7 +1,8 @@
 {
-  "name": "keyboard",
+  "name": "keyboard-tester",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://cbulock.github.io/keyboard-tester",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
@@ -29,6 +30,7 @@
     "eslint-plugin-prettier": "^3.2.0",
     "eslint-plugin-react": "^7.21.5",
     "eslint-plugin-react-hooks": "^2.5.1",
+    "gh-pages": "^3.1.0",
     "husky": "^4.3.4",
     "lint-staged": "^10.5.3",
     "prettier": "2.0.2",
@@ -41,7 +43,9 @@
     "eject": "react-scripts eject",
     "lint": "npx eslint . --ext .js --ext .jsx",
     "storybook": "start-storybook -p 6006 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
