@@ -15,14 +15,11 @@ const SBoard = styled.div`
 const Keyboard = () => {
 	const { keys } = useContext(ConfigContext);
 
-	const rows = Array.from(new Set(keys.map((key) => key.row)));
 	return (
 		<SBoard>
-			{rows.map((row) => {
-				const keysByRow = keys
-					.filter((key) => key.row === row)
-					.sort((a, b) => a.position - b.position);
-				return <KeyboardRow key={row} keys={keysByRow} />;
+			{keys.map((row, index) => {
+				// eslint-disable-next-line react/no-array-index-key
+				return <KeyboardRow key={index} keys={row} />;
 			})}
 		</SBoard>
 	);

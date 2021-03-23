@@ -1,48 +1,22 @@
-import { useContext } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Key from 'components/Key';
+import KeyByCode from 'components/KeyByCode';
 import Spacer from 'components/Spacer';
-import ConfigContext from 'context/ConfigContext';
-import ActiveKeysContext from 'context/ActiveKeys';
 
 const SRow = styled.div`
 	display: flex;
 `;
 
-const KeyboardRow = ({ keys }) => {
-	const { style } = useContext(ConfigContext);
-	const activeKeys = useContext(ActiveKeysContext);
-
-	return (
-		<SRow>
-			{keys.map((key) => {
-				const {
-					code,
-					endIcon,
-					label,
-					secondaryLabel,
-					size,
-					startIcon,
-					type,
-				} = key;
-				if (type === 'spacer') return <Spacer size={size} />;
-				return (
-					<Key
-						key={code}
-						label={label}
-						secondaryLabel={secondaryLabel}
-						startIcon={startIcon}
-						endIcon={endIcon}
-						size={size}
-						position={style.position}
-						active={activeKeys.includes(code)}
-					/>
-				);
-			})}
-		</SRow>
-	);
-};
+const KeyboardRow = ({ keys }) => (
+	<SRow>
+		{keys.map((key, index) => {
+			const { code, size, type } = key;
+			// eslint-disable-next-line react/no-array-index-key
+			if (type === 'spacer') return <Spacer key={index} size={size} />;
+			return <KeyByCode key={code} code={code} size={size} />;
+		})}
+	</SRow>
+);
 
 KeyboardRow.propTypes = {
 	keys: PropTypes.arrayOf(
@@ -53,15 +27,6 @@ KeyboardRow.propTypes = {
 			size: PropTypes.number,
 		}),
 	).isRequired,
-	style: PropTypes.shape({
-		position: PropTypes.oneOf([
-			'top-left',
-			'bottom-left',
-			'top-right',
-			'bottom-right',
-			'center',
-		]),
-	}),
 };
 
 export default KeyboardRow;
